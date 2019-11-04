@@ -34,7 +34,7 @@ namespace UserService.Controllers
 
                 return NoContent();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return StatusCode(500);
             }
@@ -54,7 +54,7 @@ namespace UserService.Controllers
 
                 return NoContent();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return StatusCode(500);
             }
