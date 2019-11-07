@@ -1,15 +1,11 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using Confluent.Kafka;
-using Mediator.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using UserService.Domain.UserAggregate;
 using UserService.Infrastructure.Config;
-using UserService.Infrastructure.Repositories;
 
-namespace Consumer.Infrastructure
+namespace UserService.Consumer.Infrastructure
 {
     public class Bootstrapper
     {

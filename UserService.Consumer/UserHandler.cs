@@ -1,10 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using Contracts.Contracts;
-using Mediator.Handler;
+﻿using System.Threading.Tasks;
+using UserService.Contracts.Contracts;
 using UserService.Domain.UserAggregate;
+using UserService.Mediator.Handler;
 
-namespace Consumer
+namespace UserService.Consumer
 {
     public class UserHandler :
         IHandleMessages<CreateUser>,

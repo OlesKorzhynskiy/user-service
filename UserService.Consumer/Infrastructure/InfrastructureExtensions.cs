@@ -1,11 +1,11 @@
 ﻿using Confluent.Kafka;
-using Mediator.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using UserService.Domain.UserAggregate;
 using UserService.Infrastructure.Repositories;
+using UserService.Mediator.Extensions;
 
-namespace Consumer.Infrastructure
+namespace UserService.Consumer.Infrastructure
 {
     public static class InfrastructureExtensions
     {

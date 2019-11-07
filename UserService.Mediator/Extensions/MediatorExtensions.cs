@@ -1,10 +1,10 @@
 ﻿using System.Threading;
 using Confluent.Kafka;
-using Mediator.Dispatcher;
-using Mediator.Handler;
 using Microsoft.Extensions.DependencyInjection;
+using UserService.Mediator.Dispatcher;
+using UserService.Mediator.Handler;
 
-namespace Mediator.Extensions
+namespace UserService.Mediator.Extensions
 {
     public static class MediatorExtensions
     {

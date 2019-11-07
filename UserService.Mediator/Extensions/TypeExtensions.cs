@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Mediator.Extensions
+namespace UserService.Mediator.Extensions
 {
     internal static class TypeExtensions
     {

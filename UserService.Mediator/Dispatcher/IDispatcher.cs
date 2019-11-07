@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Confluent.Kafka;
 
-namespace Mediator.Dispatcher
+namespace UserService.Mediator.Dispatcher
 {
     public interface IDispatcher
     {

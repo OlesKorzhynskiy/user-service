@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Mediator.Handler
+namespace UserService.Mediator.Handler
 {
     public interface IHandleMessages<T>
     {

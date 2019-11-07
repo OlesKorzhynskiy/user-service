@@ -1,4 +1,4 @@
-﻿namespace Contracts.Contracts
+﻿namespace UserService.Contracts.Contracts
 {
     public class UpdateUser
     {

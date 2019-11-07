@@ -3,19 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService", "UserService\UserService.csproj", "{48BF8881-3E4D-4D1F-9BD0-F2AADA20D1AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService.API", "UserService.API\UserService.API.csproj", "{48BF8881-3E4D-4D1F-9BD0-F2AADA20D1AE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Consumer", "Consumer\Consumer.csproj", "{377652B4-54A4-442B-A580-F38719412A88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService.Consumer", "UserService.Consumer\UserService.Consumer.csproj", "{377652B4-54A4-442B-A580-F38719412A88}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "Contracts\Contracts.csproj", "{B0843B94-E33A-4D78-B9FC-A486A9DFDE48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService.Contracts", "UserService.Contracts\UserService.Contracts.csproj", "{B0843B94-E33A-4D78-B9FC-A486A9DFDE48}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mediator", "Mediator\Mediator.csproj", "{6FF0AA38-A71D-4DF4-9621-DC510D50604E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService.Mediator", "UserService.Mediator\UserService.Mediator.csproj", "{6FF0AA38-A71D-4DF4-9621-DC510D50604E}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{2CCFC6B0-4845-4AEE-9A97-205F9C66D3D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.Domain", "UserService.Domain\UserService.Domain.csproj", "{F81E5D80-CB69-4E1B-AC24-F03A85EF65A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService.Domain", "UserService.Domain\UserService.Domain.csproj", "{F81E5D80-CB69-4E1B-AC24-F03A85EF65A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.Infrastructure", "UserService.Infrastructure\UserService.Infrastructure.csproj", "{5AF475B9-6BBA-4526-BCA1-B09724E34605}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService.Infrastructure", "UserService.Infrastructure\UserService.Infrastructure.csproj", "{5AF475B9-6BBA-4526-BCA1-B09724E34605}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Confluent.Kafka;
-using Contracts.Contracts;
-using Mediator.Dispatcher;
 using Microsoft.AspNetCore.Mvc;
+using UserService.Contracts.Contracts;
+using UserService.Mediator.Dispatcher;
 
-namespace UserService.Controllers
+namespace UserService.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

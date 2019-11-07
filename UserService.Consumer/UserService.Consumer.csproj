@@ -17,9 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Contracts\Contracts.csproj" />
-    <ProjectReference Include="..\Mediator\Mediator.csproj" />
+    <ProjectReference Include="..\UserService.Contracts\UserService.Contracts.csproj" />
     <ProjectReference Include="..\UserService.Infrastructure\UserService.Infrastructure.csproj" />
+    <ProjectReference Include="..\UserService.Mediator\UserService.Mediator.csproj" />
   </ItemGroup>
 
   <ItemGroup>

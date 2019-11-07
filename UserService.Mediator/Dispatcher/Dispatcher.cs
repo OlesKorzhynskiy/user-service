@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Confluent.Kafka;
 using Newtonsoft.Json;
 
-namespace Mediator.Dispatcher
+namespace UserService.Mediator.Dispatcher
 {
     public class Dispatcher : IDispatcher
     {
