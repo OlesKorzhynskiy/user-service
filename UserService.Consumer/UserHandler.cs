@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using UserService.Contracts.Contracts;
+using UserService.Domain;
 using UserService.Domain.UserAggregate;
 using UserService.Mediator.Handler;
 
@@ -9,9 +10,9 @@ namespace UserService.Consumer
         IHandleMessages<CreateUser>,
         IHandleMessages<UpdateUser>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IBaseRepository<User> _userRepository;
 
-        public UserHandler(IUserRepository userRepository)
+        public UserHandler(IBaseRepository<User> userRepository)
         {
             _userRepository = userRepository;
         }

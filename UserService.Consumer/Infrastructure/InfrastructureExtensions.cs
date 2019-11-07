@@ -35,8 +35,7 @@ namespace UserService.Consumer.Infrastructure
         {
             services.Configure<MongoSettings>(configuration.GetSection("MongoSettings"));
 
-            var pack = new ConventionPack();
-            pack.Add(new IgnoreExtraElementsConvention(true));
+            var pack = new ConventionPack {new IgnoreExtraElementsConvention(true)};
             ConventionRegistry.Register("My Solution Conventions", pack, t => true);
 
             BaseModelConfiguration.Configure();
