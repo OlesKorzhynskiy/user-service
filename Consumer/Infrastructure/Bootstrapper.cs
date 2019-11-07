@@ -5,6 +5,9 @@ using Mediator.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using UserService.Domain.UserAggregate;
+using UserService.Infrastructure.Config;
+using UserService.Infrastructure.Repositories;
 
 namespace Consumer.Infrastructure
 {
@@ -33,12 +36,11 @@ namespace Consumer.Infrastructure
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
-                    var mediatorSection = hostContext.Configuration.GetSection("MediatorSettings");
-                    var topic = mediatorSection.GetSection("Topic").Value;
-                    var config = new ConsumerConfig();
-                    mediatorSection.Bind(config);
+                    services.Configure<MongoSettings>(hostContext.Configuration.GetSection("MongoSettings"));
 
-                    services.WithConsumer(config, topic);
+                    services
+                        .WithServices()
+                        .WithMediator(hostContext.Configuration);
 
                     services.BuildServiceProvider();
                 })

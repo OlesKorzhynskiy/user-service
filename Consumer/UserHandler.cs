@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Contracts.Contracts;
 using Mediator.Handler;
+using UserService.Domain.UserAggregate;
 
 namespace Consumer
 {
@@ -9,16 +10,21 @@ namespace Consumer
         IHandleMessages<CreateUser>,
         IHandleMessages<UpdateUser>
     {
-        public Task Handle(CreateUser message)
+        private readonly IUserRepository _userRepository;
+
+        public UserHandler(IUserRepository userRepository)
         {
-            Console.WriteLine($"Create user with name: {message.Name}");
-            return Task.CompletedTask;
+            _userRepository = userRepository;
         }
 
-        public Task Handle(UpdateUser message)
+        public async Task Handle(CreateUser message)
         {
-            Console.WriteLine($"Update user with name: {message.Name}");
-            return Task.CompletedTask;
+            await _userRepository.InsertAsync(new User() {Name = message.Name});
+        }
+
+        public async Task Handle(UpdateUser message)
+        {
+            await _userRepository.InsertAsync(new User() {Name = message.Name});
         }
     }
 }

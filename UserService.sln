@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mediator", "Mediator\Mediat
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{2CCFC6B0-4845-4AEE-9A97-205F9C66D3D8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.Domain", "UserService.Domain\UserService.Domain.csproj", "{F81E5D80-CB69-4E1B-AC24-F03A85EF65A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.Infrastructure", "UserService.Infrastructure\UserService.Infrastructure.csproj", "{5AF475B9-6BBA-4526-BCA1-B09724E34605}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{2CCFC6B0-4845-4AEE-9A97-205F9C66D3D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CCFC6B0-4845-4AEE-9A97-205F9C66D3D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CCFC6B0-4845-4AEE-9A97-205F9C66D3D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F81E5D80-CB69-4E1B-AC24-F03A85EF65A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F81E5D80-CB69-4E1B-AC24-F03A85EF65A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F81E5D80-CB69-4E1B-AC24-F03A85EF65A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F81E5D80-CB69-4E1B-AC24-F03A85EF65A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AF475B9-6BBA-4526-BCA1-B09724E34605}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AF475B9-6BBA-4526-BCA1-B09724E34605}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AF475B9-6BBA-4526-BCA1-B09724E34605}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AF475B9-6BBA-4526-BCA1-B09724E34605}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
