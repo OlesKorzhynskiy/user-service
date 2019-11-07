@@ -32,10 +32,9 @@ namespace UserService.Consumer.Infrastructure
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.Configure<MongoSettings>(hostContext.Configuration.GetSection("MongoSettings"));
-
                     services
                         .WithServices()
+                        .WithMongo(hostContext.Configuration)
                         .WithMediator(hostContext.Configuration);
 
                     services.BuildServiceProvider();

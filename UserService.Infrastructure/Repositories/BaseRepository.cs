@@ -1,33 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using UserService.Domain.UserAggregate;
+using UserService.Domain;
 using UserService.Infrastructure.Config;
 
 namespace UserService.Infrastructure.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseModel
     {
-        private readonly IMongoCollection<User> _collection;
-        private const string CollectionName = "Users";
+        private readonly IMongoCollection<TEntity> _collection;
+        private static string CollectionName => typeof(TEntity).Name;
 
-        public UserRepository(IOptions<MongoSettings> settings)
+        public BaseRepository(IOptions<MongoSettings> settings)
         {
             var client = new MongoClient(settings.Value.ConnectionString);
             var database = client.GetDatabase(settings.Value.DatabaseName);
-            _collection = database.GetCollection<User>(CollectionName);
+            _collection = database.GetCollection<TEntity>(CollectionName);
         }
 
-        public async Task<IEnumerable<User>> GetAllAsync()
+        public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
             return await _collection.AsQueryable().ToListAsync();
         }
 
 
-        public async Task<User> GetAsync(string id)
+        public async Task<TEntity> GetAsync(string id)
         {
             try
             {
@@ -39,7 +38,7 @@ namespace UserService.Infrastructure.Repositories
             }
         }
 
-        public async Task<User> InsertAsync(User entity)
+        public async Task<TEntity> InsertAsync(TEntity entity)
         {
             if (string.IsNullOrEmpty(entity.Id))
             {
@@ -55,7 +54,7 @@ namespace UserService.Infrastructure.Repositories
             return entity;
         }
 
-        public async Task<bool> UpdateAsync(User entity)
+        public async Task<bool> UpdateAsync(TEntity entity)
         {
             if (entity == null)
             {

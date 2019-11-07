@@ -1,7 +1,10 @@
 ﻿using Confluent.Kafka;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using UserService.Domain.UserAggregate;
+using MongoDB.Bson.Serialization.Conventions;
+using UserService.Domain;
+using UserService.Infrastructure.Config;
+using UserService.Infrastructure.EntityConfigurations;
 using UserService.Infrastructure.Repositories;
 using UserService.Mediator.Extensions;
 
@@ -11,7 +14,7 @@ namespace UserService.Consumer.Infrastructure
     {
         public static IServiceCollection WithServices(this IServiceCollection services)
         {
-            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 
             return services;
         }
@@ -25,6 +28,19 @@ namespace UserService.Consumer.Infrastructure
 
             services.WithConsumer(config, topic);
             
+            return services;
+        }
+
+        public static IServiceCollection WithMongo(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<MongoSettings>(configuration.GetSection("MongoSettings"));
+
+            var pack = new ConventionPack();
+            pack.Add(new IgnoreExtraElementsConvention(true));
+            ConventionRegistry.Register("My Solution Conventions", pack, t => true);
+
+            BaseModelConfiguration.Configure();
+
             return services;
         }
     }
