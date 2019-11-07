@@ -33,7 +33,7 @@ namespace Consumer.Infrastructure
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
-                    var mediatorSection = hostContext.Configuration.GetSection("Mediator");
+                    var mediatorSection = hostContext.Configuration.GetSection("MediatorSettings");
                     var topic = mediatorSection.GetSection("Topic").Value;
                     var config = new ConsumerConfig();
                     mediatorSection.Bind(config);

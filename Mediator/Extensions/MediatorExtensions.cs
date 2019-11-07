@@ -17,7 +17,7 @@ namespace Mediator.Extensions
 
         public static IServiceCollection WithConsumer(this IServiceCollection services, ConsumerConfig config, string topic)
         {
-            var messageHandler = new Thread(() => { HandlerService.HandleMessages(config, topic); });
+            var messageHandler = new Thread(() => { HandlerService.HandleMessages(services, config, topic); });
             messageHandler.Start();
 
             return services;

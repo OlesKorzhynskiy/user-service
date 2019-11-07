@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Confluent.Kafka;
 using Mediator.Extensions;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 
 namespace Mediator.Handler
 {
     public static class HandlerService
     {
-        public static void HandleMessages(ConsumerConfig consumerConfig, string topic)
+        public static void HandleMessages(IServiceCollection services, ConsumerConfig consumerConfig, string topic)
         {
             var type = typeof(IHandleMessages<>);
             var allHandlers = type.GetAssignableTypes().ToList();
@@ -32,7 +33,8 @@ namespace Mediator.Handler
                         var handlers = allHandlers.GetTypesImplementingInterfaceWithSpecificArgument(argumentType);
                         foreach (var handler in handlers)
                         {
-                            var instance = Activator.CreateInstance(handler);
+                            var provider = services.BuildServiceProvider();
+                            var instance = ActivatorUtilities.CreateInstance(provider, handler);
                             var method = handler.GetMethod("Handle", new [] {argumentType});
                             method?.Invoke(instance, new object[] { convertedObject });
                         }
