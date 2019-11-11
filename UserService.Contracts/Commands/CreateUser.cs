@@ -1,4 +1,4 @@
-﻿namespace UserService.Contracts.Contracts
+﻿namespace UserService.Contracts.Commands
 {
     public class CreateUser
     {

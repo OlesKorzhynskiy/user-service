@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Confluent.Kafka;
 using Microsoft.AspNetCore.Mvc;
-using UserService.Contracts.Contracts;
+using UserService.Contracts.Commands;
 using UserService.Mediator.Dispatcher;
 
 namespace UserService.API.Controllers

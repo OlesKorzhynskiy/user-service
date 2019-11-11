@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using UserService.Contracts.Contracts;
+using UserService.Contracts.Commands;
 using UserService.Domain;
 using UserService.Domain.UserAggregate;
 using UserService.Mediator.Handler;
