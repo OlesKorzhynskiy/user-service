@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson.Serialization.Conventions;
+using Serilog;
 using UserService.Domain;
 using UserService.Infrastructure.Config;
 using UserService.Infrastructure.EntityConfigurations;
@@ -39,6 +40,20 @@ namespace UserService.Consumer.Infrastructure
             ConventionRegistry.Register("My Solution Conventions", pack, t => true);
 
             BaseModelConfiguration.Configure();
+
+            return services;
+        }
+
+        public static IServiceCollection WithLogger(this IServiceCollection services)
+        {
+            Log.Logger = new LoggerConfiguration()
+                .Enrich.WithThreadId()
+                .WriteTo.Console(
+                    outputTemplate:
+                    "[{Timestamp:HH:mm:ss.fff}] [{Level:u3}] [{ThreadId}] [{SourceContext}]{Message:lj}{NewLine}{Exception}")
+                .CreateLogger();
+
+            services.AddLogging(c => c.AddSerilog(Log.Logger));
 
             return services;
         }

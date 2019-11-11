@@ -39,12 +39,13 @@ namespace UserService.API.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Update(string name)
+        public async Task<ActionResult> Update(Guid id, string name)
         {
             try
             {
                 var command = new UpdateUser()
                 {
+                    Id = id,
                     Name = name
                 };
 

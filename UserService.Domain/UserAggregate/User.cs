@@ -1,4 +1,6 @@
-﻿namespace UserService.Domain.UserAggregate
+﻿using System;
+
+namespace UserService.Domain.UserAggregate
 {
     public class User : BaseModel
     {

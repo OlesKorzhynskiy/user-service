@@ -33,6 +33,7 @@ namespace UserService.Consumer.Infrastructure
                 .ConfigureServices((hostContext, services) =>
                 {
                     services
+                        .WithLogger()
                         .WithServices()
                         .WithMongo(hostContext.Configuration)
                         .WithMediator(hostContext.Configuration);

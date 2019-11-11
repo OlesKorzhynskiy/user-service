@@ -27,15 +27,8 @@ namespace UserService.Infrastructure.Repositories
 
 
         public async Task<TEntity> GetAsync(string id)
-        {
-            try
-            {
-                return await _collection.Find(t => t.Id == id).SingleAsync();
-            }
-            catch (Exception)
-            {
-                throw new SystemException("Resource not found");
-            }
+        { 
+            return await _collection.Find(t => t.Id == id).SingleOrDefaultAsync();
         }
 
         public async Task<TEntity> InsertAsync(TEntity entity)
