@@ -1,6 +1,15 @@
 version: '3.4'
 
 services:
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: username
+      MONGO_INITDB_ROOT_PASSWORD: password
+    ports:
+      - '27018:27017'
+
   zookeeper:
     image: wurstmeister/zookeeper
     ports:
@@ -27,18 +36,19 @@ services:
     image: ${DOCKER_REGISTRY-}userservice
     build:
       context: .
-      dockerfile: UserService/Dockerfile
+      dockerfile: UserService.API/Dockerfile
     depends_on:
       - kafka
     environment:
-      Mediator__BootstrapServers: kafka:9093
+      MediatorSettings__BootstrapServers: kafka:9093
 
   consumer:
     image: ${DOCKER_REGISTRY-}consumer
     build:
       context: .
-      dockerfile: Consumer/Dockerfile
+      dockerfile: UserService.Consumer/Dockerfile
     depends_on:
       - kafka
     environment:
-      Mediator__BootstrapServers: kafka:9093
+      MediatorSettings__BootstrapServers: kafka:9093
+      MongoSettings__ConnectionString: mongodb://username:password@mongo:27017

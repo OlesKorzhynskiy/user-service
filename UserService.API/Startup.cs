@@ -28,7 +28,7 @@ namespace UserService.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Users API", Version = "v1" });
             });
 
-            var mediatorSection = Configuration.GetSection("Mediator");
+            var mediatorSection = Configuration.GetSection("MediatorSettings");
             var defaultTopic = mediatorSection.GetSection("Topic").Value;
             var bootstrapServers = mediatorSection.GetSection("BootstrapServers").Value;
             var config = new ProducerConfig { BootstrapServers = bootstrapServers };
@@ -43,8 +43,6 @@ namespace UserService.API
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseHttpsRedirection();
 
             app.UseSwagger();
 

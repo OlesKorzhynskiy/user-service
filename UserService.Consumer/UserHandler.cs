@@ -23,25 +23,39 @@ namespace UserService.Consumer
 
         public async Task Handle(CreateUser message)
         {
-            _logger.LogInformation($"Inserting a new user: {message.Name}");
+            try
+            {
+                _logger.LogInformation($"Inserting a new user: {message.Name}");
 
-            await _userRepository.InsertAsync(new User() { Id = Guid.NewGuid().ToString(), Name = message.Name });
+                await _userRepository.InsertAsync(new User() {Id = Guid.NewGuid().ToString(), Name = message.Name});
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "An exception occurred inserting a new user");
+            }
         }
 
         public async Task Handle(UpdateUser message)
         {
-            _logger.LogInformation($"Updating user: {message.Id}");
-
-            var user = await _userRepository.GetAsync(message.Id.ToString());
-            if (user == null)
+            try
             {
-                _logger.LogError($"User with id: {message.Id} doesn't exist");
-                return;
+                _logger.LogInformation($"Updating user: {message.Id}");
+
+                var user = await _userRepository.GetAsync(message.Id.ToString());
+                if (user == null)
+                {
+                    _logger.LogError($"User with id: {message.Id} doesn't exist");
+                    return;
+                }
+
+                user.Name = message.Name;
+
+                await _userRepository.UpdateAsync(user);
             }
-
-            user.Name = message.Name;
-
-            await _userRepository.UpdateAsync(user);
+            catch (Exception e)
+            {
+                _logger.LogError(e, "An exception occurred updating a user");
+            }
         }
     }
 }
