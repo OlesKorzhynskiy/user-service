@@ -11,8 +11,8 @@ branches:
 
 after_success:
   # Create images
-  - docker build -t korzhynskiy/user-service-consumer ./UserService.Consumer
-  - docker build -t korzhynskiy/user-service-api ./UserService.API
+  - docker build -t korzhynskiy/user-service-consumer -f ./UserService.Consumer/Dockerfile .
+  - docker build -t korzhynskiy/user-service-api -f ./UserService.API/Dockerfile .
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to Docker Hub
