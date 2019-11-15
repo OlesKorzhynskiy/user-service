@@ -18,35 +18,33 @@ namespace UserService.Mediator.Handler
 
             consumer.Subscribe(topic);
 
-            try
+            while (true)
             {
-                while (true)
+                try
                 {
-                    try
-                    {
-                        var message = consumer.Consume();
+                    var message = consumer.Consume();
 
-                        var argumentType = Type.GetType(message.Key);
-                        dynamic convertedObject = JsonConvert.DeserializeObject(message.Value, argumentType);
+                    var argumentType = Type.GetType(message.Key);
+                    dynamic convertedObject = JsonConvert.DeserializeObject(message.Value, argumentType);
 
-                        var handlers = allHandlers.GetTypesImplementingInterfaceWithSpecificArgument(argumentType);
-                        foreach (var handler in handlers)
-                        {
-                            var provider = services.BuildServiceProvider();
-                            var instance = ActivatorUtilities.CreateInstance(provider, handler);
-                            var method = handler.GetMethod("Handle", new [] {argumentType});
-                            method?.Invoke(instance, new object[] { convertedObject });
-                        }
-                    }
-                    catch (ConsumeException e)
+                    var handlers = allHandlers.GetTypesImplementingInterfaceWithSpecificArgument(argumentType);
+                    foreach (var handler in handlers)
                     {
-                        Console.WriteLine($"Error occured: {e.Error.Reason}");
+                        var provider = services.BuildServiceProvider();
+                        var instance = ActivatorUtilities.CreateInstance(provider, handler);
+                        var method = handler.GetMethod("Handle", new [] {argumentType});
+                        method?.Invoke(instance, new object[] { convertedObject });
                     }
                 }
-            }
-            catch (OperationCanceledException)
-            {
-                consumer.Close();
+                catch (ConsumeException e)
+                {
+                    Console.WriteLine($"Error occured: {e.Error.Reason}");
+                }
+                catch (OperationCanceledException)
+                {
+                    consumer.Close();
+                    throw;
+                }
             }
         }
     }
