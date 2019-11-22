@@ -7,7 +7,6 @@ services:
 branches:
   only:
   - master
-  - korzhynskiy
 
 after_success:
   # Create images
