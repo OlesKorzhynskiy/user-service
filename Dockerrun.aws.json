@@ -1,0 +1,25 @@
+﻿{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "api",
+      "image": "korzhynskiy/user-service-api",
+      "hostname": "api",
+      "essential": true,
+      "portMappings": [
+        {
+          "host": 80,
+          "containerPort": 80
+        }
+      ],
+      "links": [ "consumer" ],
+      "memory": 128
+    },
+    {
+      "name": "consumer",
+      "image": "korzhynskiy/user-service-consumer",
+      "essential": false,
+      "memory": 128
+    }
+  ]
+}
