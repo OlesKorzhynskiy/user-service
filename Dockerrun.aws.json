@@ -2,24 +2,134 @@
   "AWSEBDockerrunVersion": 2,
   "containerDefinitions": [
     {
-      "name": "api",
-      "image": "korzhynskiy/user-service-api",
-      "hostname": "api",
+      "environment": [
+        {
+          "name": "MediatorSettings__BootstrapServers",
+          "value": "kafka:9093"
+        },
+        {
+          "name": "MongoSettings__ConnectionString",
+          "value": "mongodb://username:password@mongo:27017"
+        }
+      ],
+      "links": [
+        "kafka"
+      ],
+      "memory": 128,
       "essential": true,
+      "image": "korzhynskiy/user-service-consumer",
+      "name": "consumer"
+    },
+    {
+      "environment": [
+        {
+          "name": "KAFKA_ZOOKEEPER_CONNECT",
+          "value": "zookeeper:2181"
+        },
+        {
+          "name": "KAFKA_LISTENERS",
+          "value": "INTERNAL://:9093,EXTERNAL://:9092"
+        },
+        {
+          "name": "KAFKA_ADVERTISED_LISTENERS",
+          "value": "INTERNAL://:9093,EXTERNAL://:9092"
+        },
+        {
+          "name": "KAFKA_LISTENER_SECURITY_PROTOCOL_MAP",
+          "value": "INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT"
+        },
+        {
+          "name": "KAFKA_INTER_BROKER_LISTENER_NAME",
+          "value": "INTERNAL"
+        }
+      ],
+      "memory": 2048,
+      "essential": true,
+      "image": "wurstmeister/kafka:2.11-2.0.1",
+      "mountPoints": [
+        {
+          "containerPath": "/var/run/docker.sock",
+          "sourceVolume": "VarRunDocker_Sock"
+        }
+      ],
+      "links": [
+        "zookeeper"
+      ],
+      "name": "kafka",
+      "portMappings": [
+        {
+          "containerPort": 9092,
+          "hostPort": 9092
+        },
+        {
+          "containerPort": 9093,
+          "hostPort": 9093
+        }
+      ]
+    },
+    {
+      "environment": [
+        {
+          "name": "MONGO_INITDB_ROOT_USERNAME",
+          "value": "username"
+        },
+        {
+          "name": "MONGO_INITDB_ROOT_PASSWORD",
+          "value": "password"
+        }
+      ],
+      "memory": 128,
+      "essential": true,
+      "image": "mongo",
+      "name": "mongo",
+      "portMappings": [
+        {
+          "containerPort": 27017,
+          "hostPort": 27018
+        }
+      ]
+    },
+    {
+      "environment": [
+        {
+          "name": "MediatorSettings__BootstrapServers",
+          "value": "kafka:9093"
+        }
+      ],
+      "memory": 128,
+      "essential": true,
+      "image": "korzhynskiy/user-service-api",
+      "name": "api",
+      "links": [
+        "kafka"
+      ],
       "portMappings": [
         {
           "hostPort": 80,
           "containerPort": 80
         }
-      ],
-      "links": [ "consumer" ],
-      "memory": 128
+      ]
     },
     {
-      "name": "consumer",
-      "image": "korzhynskiy/user-service-consumer",
-      "essential": false,
-      "memory": 128
+      "memory": 2048,
+      "essential": true,
+      "image": "wurstmeister/zookeeper",
+      "name": "zookeeper",
+      "portMappings": [
+        {
+          "containerPort": 2181,
+          "hostPort": 2181
+        }
+      ]
     }
+  ],
+  "family": "",
+  "volumes": [
+      {
+          "host": {
+              "sourcePath": "/var/run/docker.sock"
+          },
+          "name": "VarRunDocker_Sock"
+      }
   ]
 }

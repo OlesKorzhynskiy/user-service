@@ -23,7 +23,7 @@ deploy:
   region: us-east-1
   app: user-service
   env: UserService-env
-  bucket_name: user-service-bucket1
+  bucket_name: user-service-s3bucket
   bucket_path: user-service
   on:
     branch: master
