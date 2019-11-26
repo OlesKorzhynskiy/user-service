@@ -6,10 +6,6 @@
         {
           "name": "MediatorSettings__BootstrapServers",
           "value": "kafka:9093"
-        },
-        {
-          "name": "MongoSettings__ConnectionString",
-          "value": "mongodb://username:password@mongo:27017"
         }
       ],
       "links": [
@@ -64,28 +60,6 @@
         {
           "containerPort": 9093,
           "hostPort": 9093
-        }
-      ]
-    },
-    {
-      "environment": [
-        {
-          "name": "MONGO_INITDB_ROOT_USERNAME",
-          "value": "username"
-        },
-        {
-          "name": "MONGO_INITDB_ROOT_PASSWORD",
-          "value": "password"
-        }
-      ],
-      "memory": 128,
-      "essential": true,
-      "image": "mongo",
-      "name": "mongo",
-      "portMappings": [
-        {
-          "containerPort": 27017,
-          "hostPort": 27018
         }
       ]
     },
