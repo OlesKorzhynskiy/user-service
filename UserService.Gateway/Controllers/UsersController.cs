@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using Confluent.Kafka;
 using Microsoft.AspNetCore.Mvc;
-using UserService.Contracts.Commands;
+using UserService.Command.Contracts;
 using UserService.Mediator.Dispatcher;
 
-namespace UserService.API.Controllers
+namespace UserService.Gateway.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

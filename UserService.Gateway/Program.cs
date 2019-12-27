@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace UserService.API
+namespace UserService.Gateway
 {
     public class Program
     {

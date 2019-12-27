@@ -9,7 +9,7 @@ using UserService.Infrastructure.EntityConfigurations;
 using UserService.Infrastructure.Repositories;
 using UserService.Mediator.Extensions;
 
-namespace UserService.Consumer.Infrastructure
+namespace UserService.Command.Infrastructure
 {
     public static class InfrastructureExtensions
     {

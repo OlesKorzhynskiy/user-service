@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using UserService.Contracts.Commands;
+using UserService.Command.Contracts;
 using UserService.Domain;
 using UserService.Domain.UserAggregate;
 using UserService.Mediator.Handler;
 
-namespace UserService.Consumer
+namespace UserService.Command
 {
     public class UserHandler :
         IHandleMessages<CreateUser>,

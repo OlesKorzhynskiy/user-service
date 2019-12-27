@@ -3,9 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using UserService.Infrastructure.Config;
 
-namespace UserService.Consumer.Infrastructure
+namespace UserService.Command.Infrastructure
 {
     public class Bootstrapper
     {

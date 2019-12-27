@@ -7,7 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using UserService.Mediator.Extensions;
 
-namespace UserService.API
+namespace UserService.Gateway
 {
     public class Startup
     {

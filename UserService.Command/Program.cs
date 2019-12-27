@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using UserService.Consumer.Infrastructure;
+using UserService.Command.Infrastructure;
 
-namespace UserService.Consumer
+namespace UserService.Command
 {
     class Program
     {

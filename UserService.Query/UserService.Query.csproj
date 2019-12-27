@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UserSecretsId>296263d5-0ec7-43ae-b9ef-d68557ad9988</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.5" />
+    <PackageReference Include="Serilog" Version="2.9.1-dev-01154" />
+    <PackageReference Include="Serilog.Enrichers.Thread" Version="3.2.0-dev-00747" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.2-dev-10265" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.0-dev-00834" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UserService.Infrastructure\UserService.Infrastructure.csproj" />
+    <ProjectReference Include="..\UserService.Query.Services\UserService.Query.Services.csproj" />
+  </ItemGroup>
+
+</Project>

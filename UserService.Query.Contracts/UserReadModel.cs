@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace UserService.Contracts.Commands
+namespace UserService.Query.Contracts
 {
-    public class UpdateUser
+    public class UserReadModel
     {
         public Guid Id { get; set; }
 

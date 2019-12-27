@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UserService.Contracts\UserService.Contracts.csproj" />
+    <ProjectReference Include="..\UserService.Command.Contracts\UserService.Command.Contracts.csproj" />
     <ProjectReference Include="..\UserService.Infrastructure\UserService.Infrastructure.csproj" />
     <ProjectReference Include="..\UserService.Mediator\UserService.Mediator.csproj" />
   </ItemGroup>
