@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: mongo-deployment
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            component: mongo
+    template:
+        metadata:
+            labels:
+                component: mongo
+        spec:
+            containers:
+                - name: mongo
+                  image: mongo
+                  ports:
+                    - containerPort: 27017
+                  env:
+                    - name: name
+                      valueFrom:
+                        secretKeyRef:
+                          name: mongo
+                          key: name
+                    - name: password
+                      valueFrom:
+                        secretKeyRef:
+                          name: mongo
+                          key: password
