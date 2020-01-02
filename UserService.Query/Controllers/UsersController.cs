@@ -7,7 +7,7 @@ using UserService.Query.Services.Interfaces;
 
 namespace UserService.Query.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -18,10 +18,12 @@ namespace UserService.Query.Controllers
             _userService = userService;
         }
 
-        [HttpGet]
-        public async Task<List<UserReadModel>> GetAll()
+        [HttpGet("users")]
+        public async Task<IActionResult> GetAll()
         {
-            return await _userService.GetAsync();
+            var result = await _userService.GetAsync();
+            
+            return Ok(result);
         }
     }
 }

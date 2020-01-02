@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using UserService.Gateway.Infrastructure;
 using UserService.Mediator.Extensions;
 
 namespace UserService.Gateway
@@ -33,7 +34,9 @@ namespace UserService.Gateway
             var bootstrapServers = mediatorSection.GetSection("BootstrapServers").Value;
             var config = new ProducerConfig { BootstrapServers = bootstrapServers };
 
-            services.WithDispatcher(config, defaultTopic);
+            services
+                .WithRefit(Configuration)
+                .WithDispatcher(config, defaultTopic);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

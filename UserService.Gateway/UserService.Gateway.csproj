@@ -16,6 +16,8 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.5" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
+    <PackageReference Include="refit" Version="4.7.51" />
+    <PackageReference Include="Refit.HttpClientFactory" Version="4.7.51" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.0.0-rc4" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.0.0-rc4" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.0.0-rc4" />
@@ -24,6 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\UserService.Command.Contracts\UserService.Command.Contracts.csproj" />
     <ProjectReference Include="..\UserService.Mediator\UserService.Mediator.csproj" />
+    <ProjectReference Include="..\UserService.Query.Client\UserService.Query.Client.csproj" />
     <ProjectReference Include="..\UserService.Query.Contracts\UserService.Query.Contracts.csproj" />
   </ItemGroup>
 
