@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Confluent.Kafka;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Refit;
 using UserService.Command.Contracts;
 using UserService.Mediator.Dispatcher;
 using UserService.Query.Client;
-using UserService.Query.Contracts;
 
-namespace UserService.Gateway.Controllers
+namespace Gateway.Controllers
 {
     [Route("api")]
     [ApiController]

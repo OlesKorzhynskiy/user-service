@@ -4,11 +4,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Refit;
 using UserService.Query.Client;
 
-namespace UserService.Gateway.Infrastructure
+namespace Gateway.Infrastructure
 {
     public static class InfrastructureExtensions
     {
-        public static IServiceCollection WithRefit(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection WithUserService(this IServiceCollection services, IConfiguration configuration)
         {
             services
                 .AddRefitClient<IUserServiceWebClient>()

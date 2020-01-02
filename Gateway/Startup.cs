@@ -1,14 +1,14 @@
 using Confluent.Kafka;
+using Gateway.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using UserService.Gateway.Infrastructure;
 using UserService.Mediator.Extensions;
 
-namespace UserService.Gateway
+namespace Gateway
 {
     public class Startup
     {
