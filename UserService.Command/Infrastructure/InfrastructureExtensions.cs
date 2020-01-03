@@ -1,4 +1,5 @@
-﻿using Confluent.Kafka;
+﻿using AutoMapper;
+using Confluent.Kafka;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson.Serialization.Conventions;
@@ -16,6 +17,13 @@ namespace UserService.Command.Infrastructure
         public static IServiceCollection WithServices(this IServiceCollection services)
         {
             services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+
+            return services;
+        }
+
+        public static IServiceCollection WithAutoMapper(this IServiceCollection services)
+        {
+            services.AddAutoMapper(typeof(MapperProfile).Assembly);
 
             return services;
         }

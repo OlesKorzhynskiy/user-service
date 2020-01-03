@@ -8,9 +8,9 @@ namespace UserService.Mediator.Extensions
 {
     public static class MediatorExtensions
     {
-        public static IServiceCollection WithDispatcher(this IServiceCollection services, ProducerConfig config, string defaultTopic)
+        public static IServiceCollection WithDispatcher(this IServiceCollection services, ProducerConfig config)
         {
-            services.AddTransient<IDispatcher>(sp => new Dispatcher.Dispatcher(config, defaultTopic));
+            services.AddTransient<IDispatcher>(sp => new Dispatcher.Dispatcher(config));
 
             return services;
         }

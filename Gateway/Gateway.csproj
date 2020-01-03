@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -18,16 +20,19 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
     <PackageReference Include="refit" Version="4.7.51" />
     <PackageReference Include="Refit.HttpClientFactory" Version="4.7.51" />
+    <PackageReference Include="Serilog" Version="2.9.1-dev-01154" />
+    <PackageReference Include="Serilog.Enrichers.Thread" Version="3.2.0-dev-00747" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.2-dev-10265" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.0-dev-00834" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.0.0-rc4" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.0.0-rc4" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.0.0-rc4" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UserService.Command.Contracts\UserService.Command.Contracts.csproj" />
+    <ProjectReference Include="..\Gateway.Contracts\Gateway.Contracts.csproj" />
+    <ProjectReference Include="..\Gateway.UserService.Adapter\Gateway.UserService.Adapter.csproj" />
     <ProjectReference Include="..\UserService.Mediator\UserService.Mediator.csproj" />
-    <ProjectReference Include="..\UserService.Query.Client\UserService.Query.Client.csproj" />
-    <ProjectReference Include="..\UserService.Query.Contracts\UserService.Query.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

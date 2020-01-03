@@ -8,6 +8,6 @@ namespace UserService.Mediator.Dispatcher
     {
         Task Dispatch<T>(T command, Action<DeliveryReport<string, string>> deliveryHandler = null);
 
-        void SetTopic(string value);
+        void RegisterRoute(Type type, string route);
     }
 }

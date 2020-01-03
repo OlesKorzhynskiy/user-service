@@ -1,3 +1,4 @@
+using AutoMapper;
 using Confluent.Kafka;
 using Gateway.Infrastructure;
 using Microsoft.AspNetCore.Builder;
@@ -29,14 +30,12 @@ namespace Gateway
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Users API", Version = "v1" });
             });
 
-            var mediatorSection = Configuration.GetSection("MediatorSettings");
-            var defaultTopic = mediatorSection.GetSection("Topic").Value;
-            var bootstrapServers = mediatorSection.GetSection("BootstrapServers").Value;
-            var config = new ProducerConfig { BootstrapServers = bootstrapServers };
+            services.AddAutoMapper(typeof(MapperProfile).Assembly);
 
             services
-                .WithRefit(Configuration)
-                .WithDispatcher(config, defaultTopic);
+                .WithLogger()
+                .WithUserService(Configuration)
+                .WithMediator(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

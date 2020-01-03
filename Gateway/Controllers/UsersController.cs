@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
+using AutoMapper;
 using Confluent.Kafka;
+using Gateway.Contracts.UserService;
+using Gateway.UserService.Adapter;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using UserService.Command.Contracts;
-using UserService.Mediator.Dispatcher;
-using UserService.Query.Client;
 
 namespace Gateway.Controllers
 {
@@ -14,31 +16,31 @@ namespace Gateway.Controllers
     [Produces("application/json")]
     public class UsersController : ControllerBase
     {
-        private readonly IDispatcher _dispatcher;
-        private readonly IUserServiceWebClient _userServiceWebClient;
+        private readonly IMapper _mapper;
+        private readonly ILogger<UsersController> _logger;
+        private readonly IUserServiceAdapter _userServiceAdapter;
 
-        public UsersController(IDispatcher dispatcher, IUserServiceWebClient userServiceWebClient)
+        public UsersController(IMapper mapper, ILogger<UsersController> logger, IUserServiceAdapter userServiceAdapter)
         {
-            _dispatcher = dispatcher;
-            _userServiceWebClient = userServiceWebClient;
+            _mapper = mapper;
+            _logger = logger;
+            _userServiceAdapter = userServiceAdapter;
         }
 
         /// <summary>
-        /// Create a new appointment
+        /// Create a new user
         /// </summary>
         [HttpPost("users")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> Create(string name)
+        public async Task<ActionResult> Create(CreateUserRequest request)
         {
+            _logger.LogInformation($"Creating user");
+
             try
             {
-                var command = new CreateUser()
-                {
-                    Name = name
-                };
-
-                await _dispatcher.Dispatch(command, Handler);
+                var command = _mapper.Map<CreateUser>(request);
+                await _userServiceAdapter.Create(command);
 
                 return NoContent();
             }
@@ -49,22 +51,19 @@ namespace Gateway.Controllers
         }
 
         /// <summary>
-        /// Update an existing appointment
+        /// Update an existing user
         /// </summary>
-        [HttpPut("users")]
+        [HttpPut("users/{userId:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> Update(Guid id, string name)
+        public async Task<ActionResult> Update(Guid userId, UpdateUserRequest request)
         {
+            _logger.LogInformation($"Updating user with id {userId}");
+
             try
             {
-                var command = new UpdateUser()
-                {
-                    Id = id,
-                    Name = name
-                };
-
-                await _dispatcher.Dispatch(command, Handler);
+                var command = _mapper.Map<UpdateUser>(request);
+                await _userServiceAdapter.Update(command);
 
                 return NoContent();
             }
@@ -75,32 +74,24 @@ namespace Gateway.Controllers
         }
 
         /// <summary>
-        /// Get all appointments
+        /// Get all users
         /// </summary>
         [HttpGet("users")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> GetAll()
         {
+            _logger.LogInformation($"Getting all users");
+
             try
             {
-                var users = await _userServiceWebClient.GetAll();
+                var users = await _userServiceAdapter.GetAll();
                 return Ok(users);
             }
             catch (Exception)
             {
                 return StatusCode(500);
             }
-        }
-
-        private void Handler(DeliveryReport<string, string> r)
-        {
-            if (r.Error.IsError)
-            {
-                throw new Exception(r.Error.Reason);
-            }
-
-            Console.WriteLine($"Delivered message to {r.TopicPartitionOffset}");
         }
     }
 }

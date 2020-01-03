@@ -34,6 +34,7 @@ namespace UserService.Command.Infrastructure
                     services
                         .WithLogger()
                         .WithServices()
+                        .WithAutoMapper()
                         .WithMongo(hostContext.Configuration)
                         .WithMediator(hostContext.Configuration);
 

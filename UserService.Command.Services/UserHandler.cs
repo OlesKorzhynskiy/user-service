@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.Extensions.Logging;
 using UserService.Command.Contracts;
 using UserService.Domain;
 using UserService.Domain.UserAggregate;
 using UserService.Mediator.Handler;
 
-namespace UserService.Command
+namespace UserService.Command.Services
 {
     public class UserHandler :
         IHandleMessages<CreateUser>,
@@ -14,11 +15,13 @@ namespace UserService.Command
     {
         private readonly ILogger _logger;
         private readonly IBaseRepository<User> _userRepository;
+        private readonly IMapper _mapper;
 
-        public UserHandler(ILogger<UserHandler> logger, IBaseRepository<User> userRepository)
+        public UserHandler(ILogger<UserHandler> logger, IBaseRepository<User> userRepository, IMapper mapper)
         {
             _logger = logger;
             _userRepository = userRepository;
+            _mapper = mapper;
         }
 
         public async Task Handle(CreateUser message)
@@ -27,7 +30,8 @@ namespace UserService.Command
             {
                 _logger.LogInformation($"Inserting a new user: {message.Name}");
 
-                await _userRepository.InsertAsync(new User() {Id = Guid.NewGuid().ToString(), Name = message.Name});
+                var user = _mapper.Map<User>(message);
+                await _userRepository.InsertAsync(user);
             }
             catch (Exception e)
             {
@@ -48,8 +52,7 @@ namespace UserService.Command
                     return;
                 }
 
-                user.Name = message.Name;
-
+                user = _mapper.Map<User>(message);
                 await _userRepository.UpdateAsync(user);
             }
             catch (Exception e)
