@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
 using Confluent.Kafka;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
@@ -32,8 +34,11 @@ namespace UserService.Mediator.Handler
                     {
                         var provider = services.BuildServiceProvider();
                         var instance = ActivatorUtilities.CreateInstance(provider, handler);
-                        var method = handler.GetMethod("Handle", new [] {argumentType});
-                        method?.Invoke(instance, new object[] { convertedObject });
+
+                        var method = handler.GetMethod("Handle", new[] {argumentType});
+                        var result = method?.Invoke(instance, new object[] {convertedObject}) as Task;
+                        
+                        HandleExceptions(result);
                     }
                 }
                 catch (ConsumeException e)
@@ -45,6 +50,19 @@ namespace UserService.Mediator.Handler
                     consumer.Close();
                     throw;
                 }
+            }
+        }
+
+        private static void HandleExceptions(Task task)
+        {
+            if (task == null)
+                return;
+
+            task.Wait();
+
+            if (task.Exception != null)
+            {
+                Console.WriteLine($"Error occured: {task.Exception}");
             }
         }
     }

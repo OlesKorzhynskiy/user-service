@@ -37,17 +37,10 @@ namespace Gateway.Controllers
         {
             _logger.LogInformation($"Creating user");
 
-            try
-            {
-                var command = _mapper.Map<CreateUser>(request);
-                await _userServiceAdapter.Create(command);
+            var command = _mapper.Map<CreateUser>(request);
+            await _userServiceAdapter.Create(command);
 
-                return NoContent();
-            }
-            catch (Exception)
-            {
-                return StatusCode(500);
-            }
+            return NoContent();
         }
 
         /// <summary>
@@ -60,17 +53,10 @@ namespace Gateway.Controllers
         {
             _logger.LogInformation($"Updating user with id {userId}");
 
-            try
-            {
-                var command = _mapper.Map<UpdateUser>(request);
-                await _userServiceAdapter.Update(command);
+            var command = _mapper.Map<UpdateUser>(request);
+            await _userServiceAdapter.Update(command);
 
-                return NoContent();
-            }
-            catch (Exception)
-            {
-                return StatusCode(500);
-            }
+            return NoContent();
         }
 
         /// <summary>
@@ -83,15 +69,8 @@ namespace Gateway.Controllers
         {
             _logger.LogInformation($"Getting all users");
 
-            try
-            {
-                var users = await _userServiceAdapter.GetAll();
-                return Ok(users);
-            }
-            catch (Exception)
-            {
-                return StatusCode(500);
-            }
+            var users = await _userServiceAdapter.GetAll();
+            return Ok(users);
         }
     }
 }

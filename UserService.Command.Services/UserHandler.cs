@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
@@ -26,39 +27,25 @@ namespace UserService.Command.Services
 
         public async Task Handle(CreateUser message)
         {
-            try
-            {
-                _logger.LogInformation($"Inserting a new user: {message.Name}");
+            _logger.LogInformation($"Inserting a new user: {message.Name}");
 
-                var user = _mapper.Map<User>(message);
-                await _userRepository.InsertAsync(user);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, "An exception occurred inserting a new user");
-            }
+            var user = _mapper.Map<User>(message);
+            await _userRepository.InsertAsync(user);
         }
 
         public async Task Handle(UpdateUser message)
         {
-            try
-            {
-                _logger.LogInformation($"Updating user: {message.Id}");
+            _logger.LogInformation($"Updating user: {message.Id}");
 
-                var user = await _userRepository.GetAsync(message.Id.ToString());
-                if (user == null)
-                {
-                    _logger.LogError($"User with id: {message.Id} doesn't exist");
-                    return;
-                }
-
-                user = _mapper.Map<User>(message);
-                await _userRepository.UpdateAsync(user);
-            }
-            catch (Exception e)
+            var user = await _userRepository.GetAsync(message.Id.ToString());
+            if (user == null)
             {
-                _logger.LogError(e, "An exception occurred updating a user");
+                _logger.LogError($"User with id: {message.Id} doesn't exist");
+                return;
             }
+
+            user = _mapper.Map<User>(message);
+            await _userRepository.UpdateAsync(user);
         }
     }
 }

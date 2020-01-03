@@ -16,6 +16,7 @@ namespace UserService.Mediator.Extensions
                     .Any(i => i.IsGenericType && type.IsAssignableFrom(i.GetGenericTypeDefinition()))
                 select t;
         }
+
         public static IEnumerable<Type> GetTypesImplementingInterfaceWithSpecificArgument(this IEnumerable<Type> types, Type argumentType)
         {
             return from type in types

@@ -1,13 +1,12 @@
 using AutoMapper;
-using Confluent.Kafka;
 using Gateway.Infrastructure;
+using Gateway.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using UserService.Mediator.Extensions;
 
 namespace Gateway
 {
@@ -52,6 +51,8 @@ namespace Gateway
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Users API V1");
             });
+
+            app.UseExceptionMiddleware();
 
             app.UseRouting();
 

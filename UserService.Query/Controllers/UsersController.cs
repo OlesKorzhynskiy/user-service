@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using UserService.Query.Contracts;
 using UserService.Query.Services.Interfaces;
 
 namespace UserService.Query.Controllers

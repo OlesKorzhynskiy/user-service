@@ -10,11 +10,11 @@ namespace UserService.Mediator.Dispatcher
     {
         private readonly ProducerConfig _producerConfig;
         private readonly TimeSpan _timeoutTime;
-        private static Dictionary<Type, string> _topics;
+        private static readonly Dictionary<Type, string> Topics;
 
         static Dispatcher()
         {
-            _topics = new Dictionary<Type, string>();
+            Topics = new Dictionary<Type, string>();
         }
 
         public Dispatcher(ProducerConfig producerConfig, TimeSpan? timeoutTime = null)
@@ -43,14 +43,14 @@ namespace UserService.Mediator.Dispatcher
 
         public void RegisterRoute(Type type, string route)
         {
-            _topics.Add(type, route);
+            Topics.Add(type, route);
         }
 
         private string TryGetTopic(Type type)
         {
             try
             {
-                return _topics[type];
+                return Topics[type];
             }
             catch (Exception)
             {
