@@ -58,11 +58,13 @@ namespace UserService.Mediator.Handler
             if (task == null)
                 return;
 
-            task.Wait();
-
-            if (task.Exception != null)
+            try
             {
-                Console.WriteLine($"Error occured: {task.Exception}");
+                task.Wait();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
         }
     }

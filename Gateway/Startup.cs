@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+using System.Reflection;
 using AutoMapper;
 using Gateway.Infrastructure;
 using Gateway.Middlewares;
@@ -27,6 +30,19 @@ namespace Gateway
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Users API", Version = "v1" });
+
+                var apiGatewayXmlPath = Path.Combine(AppContext.BaseDirectory, "Gateway.xml");
+                var contractsXmlPath = Path.Combine(AppContext.BaseDirectory, "Gateway.Contracts.xml");
+
+                if (File.Exists(apiGatewayXmlPath))
+                {
+                    c.IncludeXmlComments(apiGatewayXmlPath, true);
+                }
+
+                if (File.Exists(contractsXmlPath))
+                {
+                    c.IncludeXmlComments(contractsXmlPath);
+                }
             });
 
             services.AddAutoMapper(typeof(MapperProfile).Assembly);
@@ -49,7 +65,9 @@ namespace Gateway
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Users API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Gateway API V1");
+                c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
+                c.RoutePrefix = string.Empty;
             });
 
             app.UseExceptionMiddleware();

@@ -4,6 +4,11 @@ namespace UserService.Domain.UserAggregate
 {
     public class User : BaseModel
     {
-        public string Name { get; set; }
+        public User(string name)
+        {
+            Name = name;
+        }
+
+        public string Name { get; private set; }
     }
 }

@@ -11,6 +11,9 @@ using UserService.Command.Contracts;
 
 namespace Gateway.Controllers
 {
+    /// <summary>
+    /// Provides functionality for creating, updating, deleting and getting users.
+    /// </summary>
     [Route("api")]
     [ApiController]
     [Produces("application/json")]
@@ -54,6 +57,8 @@ namespace Gateway.Controllers
             _logger.LogInformation($"Updating user with id {userId}");
 
             var command = _mapper.Map<UpdateUser>(request);
+            command.Id = userId;
+
             await _userServiceAdapter.Update(command);
 
             return NoContent();

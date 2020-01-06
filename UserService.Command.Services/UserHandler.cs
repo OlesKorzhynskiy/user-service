@@ -39,10 +39,7 @@ namespace UserService.Command.Services
 
             var user = await _userRepository.GetAsync(message.Id.ToString());
             if (user == null)
-            {
-                _logger.LogError($"User with id: {message.Id} doesn't exist");
-                return;
-            }
+                throw new Exception($"User with id: {message.Id} doesn't exist");
 
             user = _mapper.Map<User>(message);
             await _userRepository.UpdateAsync(user);
