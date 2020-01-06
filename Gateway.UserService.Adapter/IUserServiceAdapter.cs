@@ -7,10 +7,10 @@ namespace Gateway.UserService.Adapter
 {
     public interface IUserServiceAdapter
     {
-        Task Create(CreateUser command);
+        Task CreateAsync(CreateUser command);
 
-        Task Update(UpdateUser command);
+        Task UpdateAsync(UpdateUser command);
 
-        Task<IEnumerable<UserReadModel>> GetAll();
+        Task<IEnumerable<UserReadModel>> GetAllAsync();
     }
 }

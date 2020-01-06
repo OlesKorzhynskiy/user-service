@@ -23,17 +23,17 @@ namespace Gateway.UserService.Adapter
             _logger = logger;
         }
 
-        public async Task Create(CreateUser command)
+        public async Task CreateAsync(CreateUser command)
         {
             await _dispatcher.Dispatch(command, Handler);
         }
 
-        public async Task Update(UpdateUser command)
+        public async Task UpdateAsync(UpdateUser command)
         {
             await _dispatcher.Dispatch(command, Handler);
         }
 
-        public Task<IEnumerable<UserReadModel>> GetAll()
+        public Task<IEnumerable<UserReadModel>> GetAllAsync()
         {
             return _userServiceWebClient.GetAll();
         }

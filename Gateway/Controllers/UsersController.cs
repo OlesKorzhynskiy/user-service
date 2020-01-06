@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Confluent.Kafka;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using UserService.Command.Contracts;
+using UserService.Query.Contracts;
 
 namespace Gateway.Controllers
 {
@@ -41,7 +43,7 @@ namespace Gateway.Controllers
             _logger.LogInformation($"Creating user");
 
             var command = _mapper.Map<CreateUser>(request);
-            await _userServiceAdapter.Create(command);
+            await _userServiceAdapter.CreateAsync(command);
 
             return NoContent();
         }
@@ -59,7 +61,7 @@ namespace Gateway.Controllers
             var command = _mapper.Map<UpdateUser>(request);
             command.Id = userId;
 
-            await _userServiceAdapter.Update(command);
+            await _userServiceAdapter.UpdateAsync(command);
 
             return NoContent();
         }
@@ -70,11 +72,11 @@ namespace Gateway.Controllers
         [HttpGet("users")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> GetAll()
+        public async Task<ActionResult<List<UserReadModel>>> GetAll()
         {
             _logger.LogInformation($"Getting all users");
 
-            var users = await _userServiceAdapter.GetAll();
+            var users = await _userServiceAdapter.GetAllAsync();
             return Ok(users);
         }
     }
