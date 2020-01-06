@@ -10,13 +10,15 @@ branches:
 
 after_success:
   # Create images
-  - docker build -t korzhynskiy/user-service-consumer -f ./UserService.Consumer/Dockerfile .
-  - docker build -t korzhynskiy/user-service-api -f ./UserService.API/Dockerfile .
+  - docker build -t korzhynskiy/user-service-command -f ./UserService.Command/Dockerfile .
+  - docker build -t korzhynskiy/user-service-query -f ./UserService.Query/Dockerfile .
+  - docker build -t korzhynskiy/gateway -f ./Gateway/Dockerfile .
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to Docker Hub
-  - docker push korzhynskiy/user-service-consumer
-  - docker push korzhynskiy/user-service-api
+  - docker push korzhynskiy/user-service-command
+  - docker push korzhynskiy/user-service-query
+  - docker push korzhynskiy/gateway
 
 deploy:
   provider: elasticbeanstalk

@@ -3,20 +3,21 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.0-buster AS build
 WORKDIR /src
-COPY ["UserService.Consumer/UserService.Consumer.csproj", "UserService.Consumer/"]
+COPY ["UserService.Command/UserService.Command.csproj", "UserService.Command/"]
+COPY ["UserService.Command.Services/UserService.Command.Services.csproj", "UserService.Command.Services/"]
 COPY ["UserService.Infrastructure/UserService.Infrastructure.csproj", "UserService.Infrastructure/"]
 COPY ["UserService.Domain/UserService.Domain.csproj", "UserService.Domain/"]
-COPY ["UserService.Contracts/UserService.Contracts.csproj", "UserService.Contracts/"]
+COPY ["UserService.Command.Contracts/UserService.Command.Contracts.csproj", "UserService.Command.Contracts/"]
 COPY ["UserService.Mediator/UserService.Mediator.csproj", "UserService.Mediator/"]
-RUN dotnet restore "UserService.Consumer/UserService.Consumer.csproj"
+RUN dotnet restore "UserService.Command/UserService.Command.csproj"
 COPY . .
-WORKDIR "/src/UserService.Consumer"
-RUN dotnet build "UserService.Consumer.csproj" -c Release -o /app/build
+WORKDIR "/src/UserService.Command"
+RUN dotnet build "UserService.Command.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "UserService.Consumer.csproj" -c Release -o /app/publish
+RUN dotnet publish "UserService.Command.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "UserService.Consumer.dll"]
+ENTRYPOINT ["dotnet", "UserService.Command.dll"]

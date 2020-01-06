@@ -4,18 +4,22 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.0-buster AS build
 WORKDIR /src
-COPY ["UserService.API/UserService.API.csproj", "UserService.API/"]
-COPY ["UserService.Contracts/UserService.Contracts.csproj", "UserService.Contracts/"]
+COPY ["Gateway/Gateway.csproj", "Gateway/"]
+COPY ["Gateway.Contracts/Gateway.Contracts.csproj", "Gateway.Contracts/"]
+COPY ["Gateway.UserService.Adapter/Gateway.UserService.Adapter.csproj", "Gateway.UserService.Adapter/"]
+COPY ["UserService.Query.Client/UserService.Query.Client.csproj", "UserService.Query.Client/"]
+COPY ["UserService.Query.Contracts/UserService.Query.Contracts.csproj", "UserService.Query.Contracts/"]
+COPY ["UserService.Command.Contracts/UserService.Command.Contracts.csproj", "UserService.Command.Contracts/"]
 COPY ["UserService.Mediator/UserService.Mediator.csproj", "UserService.Mediator/"]
-RUN dotnet restore "UserService.API/UserService.API.csproj"
+RUN dotnet restore "Gateway/Gateway.csproj"
 COPY . .
-WORKDIR "/src/UserService.API"
-RUN dotnet build "UserService.API.csproj" -c Release -o /app/build
+WORKDIR "/src/Gateway"
+RUN dotnet build "Gateway.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "UserService.API.csproj" -c Release -o /app/publish
+RUN dotnet publish "Gateway.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "UserService.API.dll"]
+ENTRYPOINT ["dotnet", "Gateway.dll"]
