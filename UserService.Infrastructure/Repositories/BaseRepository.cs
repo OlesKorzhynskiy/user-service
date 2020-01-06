@@ -8,7 +8,7 @@ using UserService.Infrastructure.Config;
 
 namespace UserService.Infrastructure.Repositories
 {
-    public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseModel
+    public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : AggregateRoot
     {
         private readonly IMongoCollection<TEntity> _collection;
         private static string CollectionName => typeof(TEntity).Name;

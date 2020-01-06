@@ -26,7 +26,8 @@ namespace UserService.Query.Services.Concrete
         {
             _logger.LogInformation($"Getting all users");
 
-            return _mapper.Map<List<UserReadModel>>(await _userRepository.GetAllAsync());
+            var users = await _userRepository.GetAllAsync();
+            return _mapper.Map<List<UserReadModel>>(users);
         }
     }
 }

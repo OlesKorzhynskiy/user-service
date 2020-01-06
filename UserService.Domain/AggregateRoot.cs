@@ -2,7 +2,7 @@
 
 namespace UserService.Domain
 {
-    public class BaseModel
+    public class AggregateRoot
     {
         public string Id { get; set; }
 

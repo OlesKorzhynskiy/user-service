@@ -2,7 +2,7 @@
 
 namespace UserService.Domain.UserAggregate
 {
-    public class User : BaseModel
+    public class User : AggregateRoot
     {
         public User(string name)
         {

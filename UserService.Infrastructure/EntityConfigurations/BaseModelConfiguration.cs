@@ -11,7 +11,7 @@ namespace UserService.Infrastructure.EntityConfigurations
     {
         public static void Configure()
         {
-            BsonClassMap.RegisterClassMap<BaseModel>(cm =>
+            BsonClassMap.RegisterClassMap<AggregateRoot>(cm =>
             {
                 cm.AutoMap();
                 cm.MapIdMember(c => c.Id).SetIdGenerator(new StringObjectIdGenerator());
