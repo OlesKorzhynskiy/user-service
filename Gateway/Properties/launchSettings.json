@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "UserService": {
+    "Gateway": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "",
