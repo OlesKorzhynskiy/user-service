@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: consumer-deployment
+    name: query-deployment
 spec:
     replicas: 1
     selector:
         matchLabels:
-            component: consumer
+            component: query
     template:
         metadata:
             labels:
-                component: consumer
+                component: query
         spec:
             containers:
-                - name: consumer
-                  image: korzhynskiy/user-service-consumer
+                - name: query
+                  image: korzhynskiy/user-service-query
+                  ports:
+                    - containerPort: 80
                   env:
-                    - name: MediatorSettings__BootstrapServers
-                      value: kafka-cluster-ip-service:9093
                     - name: MongoSettings__ConnectionString
-                      valueFrom:
+                      valueFrom: 
                         secretKeyRef:
                           name: mongo
                           key: url

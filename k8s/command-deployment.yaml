@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: command-deployment
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            component: command
+    template:
+        metadata:
+            labels:
+                component: command
+        spec:
+            containers:
+                - name: command
+                  image: korzhynskiy/user-service-command
+                  env:
+                    - name: MediatorSettings__BootstrapServers
+                      value: kafka-cluster-ip-service:9093
+                    - name: MongoSettings__ConnectionString
+                      valueFrom:
+                        secretKeyRef:
+                          name: mongo
+                          key: url
