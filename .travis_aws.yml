@@ -1,0 +1,33 @@
+sudo: required
+language: generic
+
+services:
+  - docker
+
+branches:
+  only:
+  - master
+
+after_success:
+  # Create images
+  - docker build -t korzhynskiy/user-service-command -f ./UserService.Command/Dockerfile .
+  - docker build -t korzhynskiy/user-service-query -f ./UserService.Query/Dockerfile .
+  - docker build -t korzhynskiy/gateway -f ./Gateway/Dockerfile .
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to Docker Hub
+  - docker push korzhynskiy/user-service-command
+  - docker push korzhynskiy/user-service-query
+  - docker push korzhynskiy/gateway
+
+deploy:
+  provider: elasticbeanstalk
+  region: us-east-1
+  app: user-service
+  env: UserService-env
+  bucket_name: user-service-s3bucket
+  bucket_path: user-service
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY

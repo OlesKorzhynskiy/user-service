@@ -1,4 +1,5 @@
-Deploy to aws:
+Use ".travis_aws.yml" file
+Deploy to aws (not kubernetes, only docker):
 1) create a new user in IAM service. Get access key and secret. Use them in travis file
 2) create a new security group in VPC service. Add inbound rule for TCP protocol. Allow everybody from this new security group
 3) create a new key pair in EC2. Get a key (.pem file). With PuttyGen program convert this file to private key .ppk (with RSA algorithm)
