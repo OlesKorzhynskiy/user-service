@@ -12,4 +12,5 @@ Deploy to google cloud (kubernetes):
    d) add to git only encrypted file
 7) Rename ".travis_google.yml" on ".travis.yml"
 8) update projectId, zone and cluster in file
+9) you should delete database-persistent-volume.yaml, and "storageclass: manual" from database-persistent-volume-claim.yaml
 9) push changes to repository
