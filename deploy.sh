@@ -1,6 +1,6 @@
-docker build -t korzhynskiy/gateway:latest -t korzhynskiy/gateway:$GIT_SHA -f ./Gateway/Dockerfile ./gateway
-docker build -t korzhynskiy/user-service-command:latest -t korzhynskiy/user-service-command:$GIT_SHA -f ./UserService.Command/Dockerfile ./gateway
-docker build -t korzhynskiy/user-service-query:latest -t korzhynskiy/user-service-query:$GIT_SHA -f ./UserService.Query/Dockerfile ./gateway
+docker build -t korzhynskiy/gateway:latest -t korzhynskiy/gateway:$GIT_SHA -f ./Gateway/Dockerfile .
+docker build -t korzhynskiy/user-service-command:latest -t korzhynskiy/user-service-command:$GIT_SHA -f ./UserService.Command/Dockerfile .
+docker build -t korzhynskiy/user-service-query:latest -t korzhynskiy/user-service-query:$GIT_SHA -f ./UserService.Query/Dockerfile .
 
 
 docker push korzhynskiy/gateway:latest
