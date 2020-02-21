@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Reflection;
 using AutoMapper;
 using Gateway.Infrastructure;
 using Gateway.Middlewares;
@@ -59,6 +58,9 @@ namespace Gateway
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                AppContext.SetSwitch(
+                    "System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
             }
 
             app.UseSwagger();

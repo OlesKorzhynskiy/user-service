@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using GrpcUserService;
 using UserService.Command.Contracts;
-using UserService.Query.Contracts;
+using UserReadModel = UserService.Query.Contracts.UserReadModel;
 
 namespace Gateway.UserService.Adapter
 {
@@ -12,5 +13,7 @@ namespace Gateway.UserService.Adapter
         Task UpdateAsync(UpdateUser command);
 
         Task<IEnumerable<UserReadModel>> GetAllAsync();
+
+        Task<UsersResponse> GetAllByGrpcAsync();
     }
 }

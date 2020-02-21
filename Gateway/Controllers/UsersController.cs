@@ -79,5 +79,19 @@ namespace Gateway.Controllers
             var users = await _userServiceAdapter.GetAllAsync();
             return Ok(users);
         }
+
+        /// <summary>
+        /// Get all users
+        /// </summary>
+        [HttpGet("usersbygrpc")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> GetAllByGrpc()
+        {
+            _logger.LogInformation($"Getting all users");
+
+            var response = await _userServiceAdapter.GetAllByGrpcAsync();
+            return Ok(response.Users);
+        }
     }
 }

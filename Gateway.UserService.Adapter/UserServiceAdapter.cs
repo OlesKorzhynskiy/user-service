@@ -6,7 +6,10 @@ using Microsoft.Extensions.Logging;
 using UserService.Command.Contracts;
 using UserService.Mediator.Dispatcher;
 using UserService.Query.Client;
-using UserService.Query.Contracts;
+using Grpc.Net.Client;
+using GrpcUserService;
+using Microsoft.Extensions.Configuration;
+using UserReadModel = UserService.Query.Contracts.UserReadModel;
 
 namespace Gateway.UserService.Adapter
 {
@@ -15,12 +18,14 @@ namespace Gateway.UserService.Adapter
         private readonly IDispatcher _dispatcher;
         private readonly IUserServiceWebClient _userServiceWebClient;
         private readonly ILogger<UserServiceAdapter> _logger;
+        private readonly string _grpcUrl;
 
-        public UserServiceAdapter(IDispatcher dispatcher, IUserServiceWebClient userServiceWebClient, ILogger<UserServiceAdapter> logger)
+        public UserServiceAdapter(IDispatcher dispatcher, IUserServiceWebClient userServiceWebClient, ILogger<UserServiceAdapter> logger, IConfiguration configuration)
         {
             _dispatcher = dispatcher;
             _userServiceWebClient = userServiceWebClient;
             _logger = logger;
+            _grpcUrl = configuration["Services:UserService:GrpcUrl"];
         }
 
         public async Task CreateAsync(CreateUser command)
@@ -36,6 +41,15 @@ namespace Gateway.UserService.Adapter
         public Task<IEnumerable<UserReadModel>> GetAllAsync()
         {
             return _userServiceWebClient.GetAll();
+        }
+
+        public async Task<UsersResponse> GetAllByGrpcAsync()
+        {
+            var channel = GrpcChannel.ForAddress(_grpcUrl);
+
+            var client = new UserServiceGrpc.UserServiceGrpcClient(channel);
+
+            return await client.GetAllAsync(new GetUsersRequest());
         }
 
         private void Handler(DeliveryReport<string, string> r)

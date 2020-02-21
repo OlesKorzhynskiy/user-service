@@ -43,6 +43,7 @@ services:
     environment:
       MediatorSettings__BootstrapServers: kafka:9093
       Services__UserService__QueryUrl: http://query:80
+      Services__UserService__GrpcUrl: http://querygrpc:80
 
   command:
     image: korzhynskiy/user-service-command
@@ -60,7 +61,13 @@ services:
     build:
       context: .
       dockerfile: UserService.Query/Dockerfile
-    ports:
-      - "53073:80"
+    environment:
+      MongoSettings__ConnectionString: mongodb://username:password@mongo:27017
+  
+  querygrpc:
+    image: korzhynskiy/user-service-querygrpc
+    build:
+      context: .
+      dockerfile: UserService.Query.Grpc/Dockerfile
     environment:
       MongoSettings__ConnectionString: mongodb://username:password@mongo:27017
